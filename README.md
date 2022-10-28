@@ -1,4 +1,6 @@
-# Getting Started with React Components & React Hooks
+#[Commpleted assignment](https://ulianataushan.github.io/bof-budget-control-app/)
+
+## Getting Started with React Components & React Hooks
 
 This assignment requires also TypeScript when passing props to React Components
 
