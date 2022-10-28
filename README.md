@@ -1,4 +1,4 @@
-#[Commpleted assignment](https://ulianataushan.github.io/bof-budget-control-app/)
+# ![Commpleted assignment](https://ulianataushan.github.io/bof-budget-control-app/)
 
 ## Getting Started with React Components & React Hooks
 
