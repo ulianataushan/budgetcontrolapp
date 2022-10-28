@@ -1,24 +1,49 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+
+import "./App.css";
+import Money from "./components/Money";
+import Balance from "./components/Balance";
+import Savings from "./components/Savings";
+import { MoneyItem } from "./types/money";
 
 function App() {
+  const [incomes, setIncomes] = useState<MoneyItem[]>([]);
+  const [expenses, setExpenses] = useState<MoneyItem[]>([]);
+  const [balance, setBalance] = useState(0);
+  const [savings, setSavings] = useState(0);
+
+  const totalIncome = incomes.reduce(
+    (prev, current) => prev + current.amount,
+    0
+  );
+  const totalExpense = expenses.reduce(
+    (prev, current) => prev + current.amount,
+    0
+  );
+
+  useEffect(() => {
+    setBalance(totalIncome - totalExpense - savings);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incomes, expenses, savings]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="accounts">
+        <Money
+          option="Income"
+          placeholder="Salary"
+          list={incomes}
+          setList={setIncomes}
+        />
+        <Money
+          option="Expense"
+          placeholder="Electricity bill"
+          list={expenses}
+          setList={setExpenses}
+        />
+        <Savings savings={savings} />
+      </div>
+      <Balance balance={balance} setSavings={setSavings} />
     </div>
   );
 }
