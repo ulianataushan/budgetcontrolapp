@@ -1,10 +1,17 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addExpense } from "../redux/reducers/expenses";
 import { SavingsProps } from "../types/savings";
 
 const Savings = ({ savings }: SavingsProps) => {
   const [target, setTarget] = useState(0);
 
   const resetTarget = () => setTarget(0);
+  const incomes = useSelector((state: any) => state.incomeReducer);
+  const expenses = useSelector((state: any) => state.expenseReducer);
+
+  console.log("incomes state: ", incomes);
+  console.log("expenses state: ", expenses);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

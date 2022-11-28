@@ -2,7 +2,7 @@ export interface MoneyItem {
   title: string;
   amount: number;
   date: string;
-  id: string;
+  id?: string;
 }
 
 export interface MoneyProps {

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { MoneyProps } from "../types/money";
-
 import { v4 as uuidv4 } from "uuid";
+
+import { Box, TextField, Button, styled, List, ListItem } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+
+import { MoneyProps } from "../types/money";
 
 const Money = ({ option, placeholder, list, setList }: MoneyProps) => {
   const [title, setTitle] = useState("");
@@ -17,53 +20,59 @@ const Money = ({ option, placeholder, list, setList }: MoneyProps) => {
   };
 
   return (
-    <div>
-      <form onSubmit={(e) => onSubmit(e)}>
-        <div>
-          <label htmlFor="title">{option} source</label>
-          <br />
-          <input
-            type="text"
-            name="title"
-            id="title"
-            placeholder={placeholder}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="amount">Amount of {option}</label>
-          <br />
-          <input
-            type="number"
-            name="amount"
-            id="amount"
-            value={amount}
-            onChange={(e) => setAmount(Number(e.target.value))}
-          />
-        </div>
-        <div>
-          <label htmlFor="date">Date of {option}</label>
-          <br />
-          <input
-            type="date"
-            name="date"
-            id="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-        </div>
-        <button type="submit">Save</button>
-      </form>
-      <ul>
+    <Box
+      component="form"
+      autoComplete="off"
+      onSubmit={(e) => onSubmit(e)}
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      gap={2}
+    >
+      <TextField
+        required
+        label={`Title of ${option}`}
+        placeholder={placeholder}
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+      />
+      <TextField
+        required
+        label={`Amount of ${option}`}
+        type="number"
+        //value={amount}
+        onChange={(e) => setAmount(Number(e.target.value))}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <TextField
+        required
+        label={`Date of ${option}`}
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        InputLabelProps={{
+          shrink: true,
+        }}
+      />
+      <Button
+        variant="outlined"
+        endIcon={<AddCircleIcon />}
+        size="small"
+        color="secondary"
+      >
+        Save
+      </Button>
+      <List>
         {list.length > 0 &&
           list.map((item) => (
-            <li key={item.id}>
+            <ListItem key={item.id}>
               {item.title}, {item.amount}, {item.date}
-            </li>
+            </ListItem>
           ))}
-      </ul>
-    </div>
+      </List>
+    </Box>
   );
 };
 

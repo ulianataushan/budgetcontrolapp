@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 import "./App.css";
 import Money from "./components/Money";
@@ -26,25 +27,38 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [incomes, expenses, savings]);
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: "#FFFFFF",
+      },
+      secondary: {
+        main: "#4B99E6",
+      },
+    },
+  });
+
   return (
-    <div className="App">
-      <div className="accounts">
-        <Money
-          option="Income"
-          placeholder="Salary"
-          list={incomes}
-          setList={setIncomes}
-        />
-        <Money
-          option="Expense"
-          placeholder="Electricity bill"
-          list={expenses}
-          setList={setExpenses}
-        />
-        <Savings savings={savings} />
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <div className="accounts">
+          <Money
+            option="Income"
+            placeholder="Salary"
+            list={incomes}
+            setList={setIncomes}
+          />
+          <Money
+            option="Expense"
+            placeholder="Electricity bill"
+            list={expenses}
+            setList={setExpenses}
+          />
+          <Savings savings={savings} />
+        </div>
+        <Balance balance={balance} setSavings={setSavings} />
       </div>
-      <Balance balance={balance} setSavings={setSavings} />
-    </div>
+    </ThemeProvider>
   );
 }
 
