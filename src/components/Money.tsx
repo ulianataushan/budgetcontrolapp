@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { Box, TextField, Button, styled, List, ListItem } from "@mui/material";
+import { Box, TextField, Button, List, ListItem } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import { MoneyProps } from "../types/money";
@@ -58,9 +58,9 @@ const Money = ({ option, placeholder, list, setList }: MoneyProps) => {
       />
       <Button
         variant="outlined"
-        endIcon={<AddCircleIcon />}
+        endIcon={<AddCircleIcon color="secondary" />}
         size="small"
-        color="secondary"
+        color="primary"
       >
         Save
       </Button>

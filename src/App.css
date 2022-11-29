@@ -1,13 +1,8 @@
-/* * {
-  margin: 0 0 0.5em 0;
-  font-family: "Roboto", sans-serif;
-  font-weight: 600;
-}
-
 body {
-  background-color: rgb(253, 247, 227);
+  margin: 3em !important;
 }
 
+/*
 .App {
   display: flex;
   flex-direction: column;
