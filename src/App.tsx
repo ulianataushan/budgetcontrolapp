@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { createTheme, Grid, ThemeProvider, CssBaseline } from "@mui/material";
 import { Box } from "@mui/system";
 
@@ -7,16 +7,18 @@ import Money from "./components/Money";
 import Balance from "./components/Balance";
 import Savings from "./components/Savings";
 import ToggleButton from "./components/ToggleButton";
-import { MoneyItem } from "./types/money";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
 
 export const ThemeContext = createContext({ toggleMode: () => {} });
 
 function App() {
-  const [incomes, setIncomes] = useState<MoneyItem[]>([]);
-  const [expenses, setExpenses] = useState<MoneyItem[]>([]);
   const [balance, setBalance] = useState(0);
   const [savings, setSavings] = useState(0);
   const [mode, setMode] = useState<"light" | "dark">("light");
+
+  const incomes = useSelector((state: RootState) => state.incomeReducer);
+  const expenses = useSelector((state: RootState) => state.expenseReducer);
 
   const totalIncome = incomes.reduce(
     (prev, current) => prev + current.amount,
@@ -82,19 +84,13 @@ function App() {
         <Box className="App">
           <Grid container spacing={2}>
             <Grid item>
-              <Money
-                option="Income"
-                placeholder="Salary"
-                list={incomes}
-                setList={setIncomes}
-              />
+              <Money option="Income" placeholder="Salary" list={incomes} />
             </Grid>
             <Grid item>
               <Money
                 option="Expense"
                 placeholder="Electricity bill"
                 list={expenses}
-                setList={setExpenses}
               />
             </Grid>
           </Grid>

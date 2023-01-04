@@ -1,22 +1,43 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { Box, TextField, Button, List, ListItem } from "@mui/material";
+import { Box, TextField, Button } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import { MoneyProps } from "../types/money";
+import MoneyTable from "./MoneyTable";
+import { useDispatch } from "react-redux";
+import { addExpense } from "../redux/reducers/expenses";
+import { addIncome } from "../redux/reducers/incomes";
 
-const Money = ({ option, placeholder, list, setList }: MoneyProps) => {
+const Money = ({ option, placeholder }: MoneyProps) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState("");
 
+  const dispatch = useDispatch();
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setList([{ amount, title, date, id: uuidv4() }, ...list]);
-    setAmount(0);
-    setTitle("");
-    setDate("");
+    if (option === "Expense") {
+      dispatch(
+        addExpense({
+          title,
+          amount,
+          date,
+          id: uuidv4(),
+        })
+      );
+    } else {
+      dispatch(
+        addIncome({
+          title,
+          amount,
+          date,
+          id: uuidv4(),
+        })
+      );
+    }
   };
 
   return (
@@ -64,14 +85,7 @@ const Money = ({ option, placeholder, list, setList }: MoneyProps) => {
       >
         Save
       </Button>
-      <List>
-        {list.length > 0 &&
-          list.map((item) => (
-            <ListItem key={item.id}>
-              {item.title}, {item.amount}, {item.date}
-            </ListItem>
-          ))}
-      </List>
+      <MoneyTable option={option} />
     </Box>
   );
 };
