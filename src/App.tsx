@@ -9,6 +9,7 @@ import Savings from "./components/Savings";
 import ToggleButton from "./components/ToggleButton";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
+import Header from "./components/Header";
 
 export const ThemeContext = createContext({ toggleMode: () => {} });
 
@@ -81,8 +82,21 @@ function App() {
     <ThemeContext.Provider value={manageTheme}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box className="App">
-          <Grid container spacing={2}>
+        <Header />
+        <Box
+          className="App"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <Grid
+            container
+            spacing={2}
+            direction="row"
+            justifyContent="center"
+            height="800"
+          >
             <Grid item>
               <Money option="Income" placeholder="Salary" list={incomes} />
             </Grid>
@@ -93,13 +107,15 @@ function App() {
                 list={expenses}
               />
             </Grid>
-          </Grid>
-          <Grid container spacing={2}>
             <Grid item>
-              <Savings savings={savings} />
-            </Grid>
-            <Grid item>
-              <Balance balance={balance} setSavings={setSavings} />
+              <Grid container direction="column">
+                <Grid item>
+                  <Savings savings={savings} />
+                </Grid>
+                <Grid item>
+                  <Balance balance={balance} setSavings={setSavings} />
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
           <ToggleButton />

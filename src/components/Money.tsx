@@ -6,16 +6,16 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import { MoneyProps } from "../types/money";
 import MoneyTable from "./MoneyTable";
-import { useDispatch } from "react-redux";
 import { addExpense } from "../redux/reducers/expenses";
 import { addIncome } from "../redux/reducers/incomes";
+import { useAppDispatch } from "../redux/hooks/reduxHooks";
 
 const Money = ({ option, placeholder }: MoneyProps) => {
   const [title, setTitle] = useState("");
   const [amount, setAmount] = useState(0);
   const [date, setDate] = useState("");
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,6 +42,7 @@ const Money = ({ option, placeholder }: MoneyProps) => {
 
   return (
     <Box
+      sx={{ width: 350 }}
       component="form"
       autoComplete="off"
       onSubmit={(e) => onSubmit(e)}
@@ -51,6 +52,7 @@ const Money = ({ option, placeholder }: MoneyProps) => {
       gap={2}
     >
       <TextField
+        sx={{ width: 350 }}
         required
         label={`Title of ${option}`}
         placeholder={placeholder}
@@ -58,16 +60,17 @@ const Money = ({ option, placeholder }: MoneyProps) => {
         onChange={(e) => setTitle(e.target.value)}
       />
       <TextField
+        sx={{ width: 350 }}
         required
         label={`Amount of ${option}`}
         type="number"
-        //value={amount}
         onChange={(e) => setAmount(Number(e.target.value))}
         InputLabelProps={{
           shrink: true,
         }}
       />
       <TextField
+        sx={{ width: 350 }}
         required
         label={`Date of ${option}`}
         type="date"
@@ -78,9 +81,10 @@ const Money = ({ option, placeholder }: MoneyProps) => {
         }}
       />
       <Button
+        type="submit"
         variant="outlined"
         endIcon={<AddCircleIcon color="secondary" />}
-        size="small"
+        size="large"
         color="primary"
       >
         Save

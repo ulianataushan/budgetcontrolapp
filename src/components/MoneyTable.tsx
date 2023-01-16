@@ -1,5 +1,5 @@
 import {
-  Button,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -7,28 +7,38 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+
+import { useAppDispatch, useAppSelector } from "../redux/hooks/reduxHooks";
+import { deleteExpense } from "../redux/reducers/expenses";
 import { deleteIncome } from "../redux/reducers/incomes";
-import { RootState } from "../redux/store";
 import { MoneyTableProps } from "../types/money";
 
 const MoneyTable = ({ option }: MoneyTableProps) => {
-  const list = useSelector((state: RootState) =>
+  const list = useAppSelector((state) =>
     option === "Income" ? state.incomeReducer : state.expenseReducer
   );
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const onDelete = (id: string) => {
-    dispatch(deleteIncome(id));
+    option === "Income"
+      ? dispatch(deleteIncome(id))
+      : dispatch(deleteExpense(id));
   };
 
   return (
-    <TableContainer>
-      <Table>
+    <TableContainer
+      sx={{
+        mt: 3,
+        height: 300,
+      }}
+    >
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
             <TableCell>Amount</TableCell>
             <TableCell>Date</TableCell>
+            <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -38,7 +48,13 @@ const MoneyTable = ({ option }: MoneyTableProps) => {
               <TableCell>{item.amount}</TableCell>
               <TableCell>{item.date}</TableCell>
               <TableCell>
-                <Button onClick={() => onDelete(item.id)}>Delete</Button>
+                <IconButton
+                  onClick={() => onDelete(item.id)}
+                  size="small"
+                  color="primary"
+                >
+                  <DeleteOutlineIcon />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}
