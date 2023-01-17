@@ -6,12 +6,12 @@ const balanceSlicer = createSlice({
   name: "balance",
   initialState,
   reducers: {
-    calculateBalance: (state) => {
-      return;
+    setBalance: function (state: number, action: PayloadAction<number>) {
+      return action.payload;
     },
   },
 });
 
 const balanceReducer = balanceSlicer.reducer;
-export const {} = balanceSlicer.actions;
+export const { setBalance } = balanceSlicer.actions;
 export default balanceReducer;

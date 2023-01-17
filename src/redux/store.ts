@@ -1,11 +1,15 @@
 import { configureStore } from "@reduxjs/toolkit";
 import incomeReducer from "./reducers/incomes";
 import expenseReducer from "./reducers/expenses";
+import balanceReducer from "./reducers/balance";
+import savingsReducer from "./reducers/savings";
 
-const store = configureStore({
+const store: any = configureStore({
   reducer: {
     incomeReducer,
     expenseReducer,
+    balanceReducer,
+    savingsReducer,
   },
 });
 

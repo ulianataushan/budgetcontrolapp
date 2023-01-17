@@ -7,33 +7,36 @@ import Money from "./components/Money";
 import Balance from "./components/Balance";
 import Savings from "./components/Savings";
 import ToggleButton from "./components/ToggleButton";
-import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
 import Header from "./components/Header";
+import { useAppDispatch, useAppSelector } from "./redux/hooks/reduxHooks";
+import { setBalance } from "./redux/reducers/balance";
 
 export const ThemeContext = createContext({ toggleMode: () => {} });
 
 function App() {
-  const [balance, setBalance] = useState(0);
-  const [savings, setSavings] = useState(0);
-  const [mode, setMode] = useState<"light" | "dark">("light");
-
-  const incomes = useSelector((state: RootState) => state.incomeReducer);
-  const expenses = useSelector((state: RootState) => state.expenseReducer);
+  const [mode, setMode] = useState<"light" | "dark">("dark");
+  const dispatch = useAppDispatch();
+  const incomes = useAppSelector((state: RootState) => state.incomeReducer);
+  const expenses = useAppSelector((state: RootState) => state.expenseReducer);
+  const savings = useAppSelector(
+    (state: RootState) => state.savingsReducer.savings
+  );
 
   const totalIncome = incomes.reduce(
-    (prev, current) => prev + current.amount,
+    (prev: any, current: { amount: any }) => prev + current.amount,
     0
   );
   const totalExpense = expenses.reduce(
-    (prev, current) => prev + current.amount,
+    (prev: any, current: { amount: any }) => prev + current.amount,
     0
   );
-
-  useEffect(() => {
-    setBalance(totalIncome - totalExpense - savings);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [incomes, expenses, savings]);
+  useEffect(
+    function () {
+      dispatch(setBalance(totalIncome - totalExpense - savings));
+    },
+    [incomes, expenses, savings, totalExpense, totalIncome, dispatch]
+  );
 
   const theme = createTheme({
     palette: {
@@ -108,12 +111,12 @@ function App() {
               />
             </Grid>
             <Grid item>
-              <Grid container direction="column">
+              <Grid container spacing={2} direction="column">
                 <Grid item>
-                  <Savings savings={savings} />
+                  <Savings />
                 </Grid>
                 <Grid item>
-                  <Balance balance={balance} setSavings={setSavings} />
+                  <Balance />
                 </Grid>
               </Grid>
             </Grid>

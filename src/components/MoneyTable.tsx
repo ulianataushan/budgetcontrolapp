@@ -12,10 +12,10 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/reduxHooks";
 import { deleteExpense } from "../redux/reducers/expenses";
 import { deleteIncome } from "../redux/reducers/incomes";
-import { MoneyTableProps } from "../types/money";
+import { MoneyItem, MoneyTableProps } from "../types/money";
 
 const MoneyTable = ({ option }: MoneyTableProps) => {
-  const list = useAppSelector((state) =>
+  const list: MoneyItem[] = useAppSelector((state) =>
     option === "Income" ? state.incomeReducer : state.expenseReducer
   );
   const dispatch = useAppDispatch();
@@ -25,10 +25,17 @@ const MoneyTable = ({ option }: MoneyTableProps) => {
       : dispatch(deleteExpense(id));
   };
 
+  const formatDate = (date: string) => {
+    const [year, month, day] = date.split("-");
+    const result = `${month}/${day}/${year}`;
+    return result;
+  };
+
   return (
     <TableContainer
       sx={{
         mt: 3,
+        mb: 5,
         height: 300,
       }}
     >
@@ -45,8 +52,8 @@ const MoneyTable = ({ option }: MoneyTableProps) => {
           {list.map((item) => (
             <TableRow key={item.id}>
               <TableCell>{item.title}</TableCell>
-              <TableCell>{item.amount}</TableCell>
-              <TableCell>{item.date}</TableCell>
+              <TableCell>{`€ ${item.amount}`}</TableCell>
+              <TableCell>{formatDate(item.date)}</TableCell>
               <TableCell>
                 <IconButton
                   onClick={() => onDelete(item.id)}

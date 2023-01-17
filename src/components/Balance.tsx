@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, InputAdornment, Stack, TextField } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
-import { BalanceProps } from "../types/balance";
+import { setSavings } from "../redux/reducers/savings";
+import { useAppDispatch, useAppSelector } from "../redux/hooks/reduxHooks";
+import { RootState } from "../redux/store";
 
-const Balance = ({ balance, setSavings }: BalanceProps) => {
+const Balance = () => {
+  const dispatch = useAppDispatch();
+  const balance = useAppSelector((state: RootState) => state.balanceReducer);
+  const savings = useAppSelector(
+    (state: RootState) => state.savingsReducer.savings
+  );
+
   const [amount, setAmount] = useState(0);
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSavings((savings) => savings + amount);
+    dispatch(setSavings(savings + amount));
     setAmount(0);
   };
 
@@ -18,7 +26,7 @@ const Balance = ({ balance, setSavings }: BalanceProps) => {
       <TextField
         sx={{ width: 350, background: "#8194de" }}
         color="secondary"
-        defaultValue={`Current balance: ${balance}`}
+        value={`Current balance: ${balance}`}
         InputProps={{
           readOnly: true,
         }}
@@ -30,7 +38,7 @@ const Balance = ({ balance, setSavings }: BalanceProps) => {
         spacing={1}
       >
         <TextField
-          sx={{ width: 350 }}
+          sx={{ width: 350, mt: 1 }}
           label="Transfer to savings"
           type="number"
           name="addSaving"
@@ -39,6 +47,9 @@ const Balance = ({ balance, setSavings }: BalanceProps) => {
               ? setAmount(Number(e.target.value))
               : alert("You can't transfer more than your current balance")
           }
+          InputProps={{
+            startAdornment: <InputAdornment position="start">€</InputAdornment>,
+          }}
         />
         <Button
           sx={{ width: 350 }}

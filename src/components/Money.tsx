@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { Box, TextField, Button } from "@mui/material";
+import { Box, TextField, Button, InputAdornment } from "@mui/material";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import { MoneyProps } from "../types/money";
@@ -60,13 +60,18 @@ const Money = ({ option, placeholder }: MoneyProps) => {
         onChange={(e) => setTitle(e.target.value)}
       />
       <TextField
-        sx={{ width: 350 }}
+        sx={{
+          width: 350,
+        }}
         required
         label={`Amount of ${option}`}
         type="number"
         onChange={(e) => setAmount(Number(e.target.value))}
         InputLabelProps={{
           shrink: true,
+        }}
+        InputProps={{
+          startAdornment: <InputAdornment position="start">€</InputAdornment>,
         }}
       />
       <TextField
