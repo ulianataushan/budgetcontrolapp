@@ -1,4 +1,5 @@
 import {
+  Button,
   IconButton,
   Table,
   TableBody,
@@ -8,11 +9,24 @@ import {
   TableRow,
 } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
+import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
 import { useAppDispatch, useAppSelector } from "../redux/hooks/reduxHooks";
-import { deleteExpense } from "../redux/reducers/expenses";
-import { deleteIncome } from "../redux/reducers/incomes";
+import {
+  deleteIncome,
+  sortIncomeAmount,
+  sortIncomeTitle,
+  sortIncomeDate,
+} from "../redux/reducers/incomes";
+import {
+  deleteExpense,
+  sortExpenseTitle,
+  sortExpenseAmount,
+  sortExpenseDate,
+} from "../redux/reducers/expenses";
 import { MoneyItem, MoneyTableProps } from "../types/money";
+import { useState } from "react";
 
 const MoneyTable = ({ option }: MoneyTableProps) => {
   const list: MoneyItem[] = useAppSelector((state) =>
@@ -27,8 +41,64 @@ const MoneyTable = ({ option }: MoneyTableProps) => {
 
   const formatDate = (date: string) => {
     const [year, month, day] = date.split("-");
-    const result = `${month}/${day}/${year}`;
+    const result = `${day}/${month}/${year}`;
     return result;
+  };
+
+  const [order, setOrder] = useState<"asc" | "desc">("asc");
+
+  const sortByTitle = () => {
+    if (option === "Income") {
+      dispatch(sortIncomeTitle(order));
+      if (order === "asc") {
+        setOrder("desc");
+      } else {
+        setOrder("asc");
+      }
+    } else {
+      dispatch(sortExpenseTitle(order));
+      if (order === "asc") {
+        setOrder("desc");
+      } else {
+        setOrder("asc");
+      }
+    }
+  };
+
+  const sortByAmount = () => {
+    if (option === "Income") {
+      dispatch(sortIncomeAmount(order));
+      if (order === "asc") {
+        setOrder("desc");
+      } else {
+        setOrder("asc");
+      }
+    } else {
+      dispatch(sortExpenseAmount(order));
+      if (order === "asc") {
+        setOrder("desc");
+      } else {
+        setOrder("asc");
+      }
+    }
+  };
+
+  const sortByDate = () => {
+    if (option === "Income") {
+      dispatch(sortIncomeDate(order));
+      if (order === "asc") {
+        setOrder("desc");
+      } else {
+        setOrder("asc");
+      }
+    } else {
+      dispatch(sortExpenseDate(order));
+      if (order === "asc") {
+        setOrder("desc");
+      } else {
+        setOrder("asc");
+      }
+    }
   };
 
   return (
@@ -42,10 +112,34 @@ const MoneyTable = ({ option }: MoneyTableProps) => {
       <Table stickyHeader>
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell>
+              <Button
+                color="primary"
+                onClick={() => sortByTitle()}
+                endIcon={<SortByAlphaIcon />}
+              >
+                Title
+              </Button>
+            </TableCell>
+            <TableCell>
+              <Button
+                color="primary"
+                onClick={() => sortByAmount()}
+                endIcon={<UnfoldMoreIcon />}
+              >
+                Amount
+              </Button>
+            </TableCell>
+            <TableCell>
+              <Button
+                color="primary"
+                onClick={() => sortByDate()}
+                endIcon={<UnfoldMoreIcon />}
+              >
+                Date
+              </Button>
+            </TableCell>
+            <TableCell>ACTIONS</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -42,7 +42,7 @@ const Money = ({ option, placeholder }: MoneyProps) => {
 
   return (
     <Box
-      sx={{ width: 350 }}
+      sx={{ width: 500 }}
       component="form"
       autoComplete="off"
       onSubmit={(e) => onSubmit(e)}
@@ -52,7 +52,7 @@ const Money = ({ option, placeholder }: MoneyProps) => {
       gap={2}
     >
       <TextField
-        sx={{ width: 350 }}
+        sx={{ width: 500 }}
         required
         label={`Title of ${option}`}
         placeholder={placeholder}
@@ -61,7 +61,7 @@ const Money = ({ option, placeholder }: MoneyProps) => {
       />
       <TextField
         sx={{
-          width: 350,
+          width: 500,
         }}
         required
         label={`Amount of ${option}`}
@@ -75,7 +75,7 @@ const Money = ({ option, placeholder }: MoneyProps) => {
         }}
       />
       <TextField
-        sx={{ width: 350 }}
+        sx={{ width: 500 }}
         required
         label={`Date of ${option}`}
         type="date"

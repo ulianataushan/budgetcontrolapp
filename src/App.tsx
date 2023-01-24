@@ -101,14 +101,10 @@ function App() {
             height="800"
           >
             <Grid item>
-              <Money option="Income" placeholder="Salary" list={incomes} />
+              <Money option="Income" placeholder="Salary" />
             </Grid>
             <Grid item>
-              <Money
-                option="Expense"
-                placeholder="Electricity bill"
-                list={expenses}
-              />
+              <Money option="Expense" placeholder="Electricity bill" />
             </Grid>
             <Grid item>
               <Grid container spacing={2} direction="column">

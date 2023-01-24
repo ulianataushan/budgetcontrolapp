@@ -8,7 +8,6 @@ export interface MoneyItem {
 export interface MoneyProps {
   option: "Income" | "Expense";
   placeholder: "Salary" | "Electricity bill";
-  list: MoneyItem[];
 }
 
 export interface MoneyTableProps {
