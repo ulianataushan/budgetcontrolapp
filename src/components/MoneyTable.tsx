@@ -1,6 +1,7 @@
 import {
   Button,
   IconButton,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -27,12 +28,14 @@ import {
 } from "../redux/reducers/expenses";
 import { MoneyItem, MoneyTableProps } from "../types/money";
 import { useState } from "react";
+import EditModal from "./EditModal";
 
-const MoneyTable = ({ option }: MoneyTableProps) => {
+const MoneyTable = ({ option, placeholder }: MoneyTableProps) => {
   const list: MoneyItem[] = useAppSelector((state) =>
     option === "Income" ? state.incomeReducer : state.expenseReducer
   );
   const dispatch = useAppDispatch();
+
   const onDelete = (id: string) => {
     option === "Income"
       ? dispatch(deleteIncome(id))
@@ -149,13 +152,25 @@ const MoneyTable = ({ option }: MoneyTableProps) => {
               <TableCell>{`€ ${item.amount}`}</TableCell>
               <TableCell>{formatDate(item.date)}</TableCell>
               <TableCell>
-                <IconButton
-                  onClick={() => onDelete(item.id)}
-                  size="small"
-                  color="primary"
+                <Stack
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  spacing={0.5}
                 >
-                  <DeleteOutlineIcon />
-                </IconButton>
+                  <EditModal
+                    option={option}
+                    placeholder={placeholder}
+                    item={item}
+                  />
+                  <IconButton
+                    onClick={() => onDelete(item.id)}
+                    size="small"
+                    color="primary"
+                  >
+                    <DeleteOutlineIcon />
+                  </IconButton>
+                </Stack>
               </TableCell>
             </TableRow>
           ))}

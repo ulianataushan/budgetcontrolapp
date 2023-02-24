@@ -11,5 +11,6 @@ export interface MoneyProps {
 }
 
 export interface MoneyTableProps {
-  option: string;
+  option: "Income" | "Expense";
+  placeholder: "Salary" | "Electricity bill";
 }
