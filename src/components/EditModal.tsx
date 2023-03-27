@@ -1,8 +1,8 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import { IconButton } from "@mui/material";
+
+import { Box, Modal, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+
 import { EditModalProps } from "../types/editModal";
 import MoneyForm from "./MoneyForm";
 

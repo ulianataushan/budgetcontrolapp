@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { Button, InputAdornment, Stack, TextField } from "@mui/material";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 
-import { setSavings } from "../redux/reducers/savings";
 import { useAppDispatch, useAppSelector } from "../redux/hooks/reduxHooks";
+import { setSavings } from "../redux/reducers/savings";
 import { RootState } from "../redux/store";
 
 const Balance = () => {

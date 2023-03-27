@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Button,
   IconButton,
@@ -13,7 +15,6 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 import UnfoldMoreIcon from "@mui/icons-material/UnfoldMore";
 
-import { useAppDispatch, useAppSelector } from "../redux/hooks/reduxHooks";
 import {
   deleteIncome,
   sortIncomeAmount,
@@ -26,9 +27,9 @@ import {
   sortExpenseAmount,
   sortExpenseDate,
 } from "../redux/reducers/expenses";
-import { MoneyItem, MoneyTableProps } from "../types/money";
-import { useState } from "react";
 import EditModal from "./EditModal";
+import { MoneyItem, MoneyTableProps } from "../types/money";
+import { useAppDispatch, useAppSelector } from "../redux/hooks/reduxHooks";
 
 const MoneyTable = ({ option, placeholder }: MoneyTableProps) => {
   const list: MoneyItem[] = useAppSelector((state) =>

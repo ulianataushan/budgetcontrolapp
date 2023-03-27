@@ -1,14 +1,16 @@
 import { createContext, useEffect, useState } from "react";
+
 import { createTheme, Grid, ThemeProvider, CssBaseline } from "@mui/material";
 import { Box } from "@mui/system";
 
 import "./App.css";
+import Header from "./components/Header";
 import Money from "./components/Money";
 import Balance from "./components/Balance";
 import Savings from "./components/Savings";
 import ToggleButton from "./components/ToggleButton";
+
 import { RootState } from "./redux/store";
-import Header from "./components/Header";
 import { useAppDispatch, useAppSelector } from "./redux/hooks/reduxHooks";
 import { setBalance } from "./redux/reducers/balance";
 

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
 import { MoneyItem } from "../../types/money";
 
 const initialState: MoneyItem[] = [];
