@@ -1,4 +1,4 @@
-# [Budget Control App](budgetcontrolapp.vercel.app)
+# [Budget Control App](https://budgetcontrolapp.vercel.app/)
 
 ## About the app
 
@@ -11,4 +11,4 @@ Budget Control App is a simple one-page application, meant to be used to keep tr
 - Redux
 - Material-UI
 
-### Check out [the app](budgetcontrolapp.vercel.app)
+### Check out [the app](https://budgetcontrolapp.vercel.app/)
